@@ -1,0 +1,68 @@
+<html>
+    <style>
+        .active { background-color:rgb(217, 173, 255); }
+    </style>
+    <script src="https://unpkg.com/vue"></script>
+    <div id="muhDiv">
+        {{ message }}
+        <input v-model="message">
+        <p v-bind:class="{active:isActive}">Here is a paragraph</p>
+        <button v-on:click = "message = 'new message'">Change</button>
+        <ul>
+            <li v-for="toto in todo">{{ toto.list }}</li>
+        </ul>
+        <button v-on:click="increment">Increment clicks</button>
+        <button v-on:click="decrement">Decrement clicks</button>
+        <p>Clicks: {{clicks}}</p>
+        <p>Another: {{another}}</p>
+        <p>Computed: {{counter}}</p>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el : "#muhDiv",
+            data : {
+                message : "Hello Vue",
+                isActive : true,
+                todo : [
+                    {list : "Learn HTML and CSS"},
+                    {list : "Learn JavaScript"},
+                    {list : "Learn Vue"}
+                ],
+                clicks : 0,
+                another : 0
+            },
+            methods : {
+                changeTitle(){
+                    this.message = "Message from the method"
+                },
+                increment(){
+                    this.clicks++;
+                    this.another = this.clicks + 5;
+                },
+                decrement(){
+                    this.clicks--;
+                    this.another = this.clicks +5;
+                }
+            },
+            computed : {
+                counter(){
+                    return this.another % 10;
+                }
+            }
+        });
+    </script>
+</html>
+
+<!--
+Directives
+
+v-model
+v-bind
+v-for
+VUE instance
+el
+data
+methods
+computed
+-->

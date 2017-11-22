@@ -1,0 +1,46 @@
+<html>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://unpkg.com/vue"></script>
+    
+    <div id="app">
+        <p v-if="cartItem > 0">Items in Cart: {{ cartItem }}</p>
+        <p style="font-weight:bold">Selected Item: {{itemSelected}}</p>
+        <div v-for="item in items" v-if="item.ordered >= 0">
+            <p>{{ item.name }}</p>
+            <img v-bind:src = "item.imgSrc" v-on:click="itemName(item.name)">
+            <button v-on:click="orderThis(item)">Order {{item.name}}!</button>
+            <button v-on:click="deleteThis(item)">Delete {{item.name}}!</button>
+            <p v-if="item.ordered > 0">Items Ordered: {{item.ordered}}</p>
+            <hr>
+        </div>
+    </div>
+
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                cartItem: 0,
+                itemSelected : "None yet!",
+                items : 
+                [
+                    {name: 'Stitch', ordered:0, imgSrc: 'images/stitch.jpg'},
+                    {name: 'Dori', ordered:0, imgSrc: 'images/dory.png'}
+                ]
+            },
+            methods: {
+                itemName(theName){
+                    this.itemSelected = theName;
+                },
+                orderThis(theItem){
+                    theItem.ordered++;
+                    this.cartItem++;
+                },
+                deleteThis(theItem){
+                    this.cartItem -= theItem.ordered;
+                    theItem.ordered = -1;   
+                }
+            }
+        });
+    </script>
+</html>
